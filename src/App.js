@@ -24,7 +24,7 @@ function App() {
             <div className='description'>old tv is broken</div>
           </div>
           <div className='right'>
-            <div className='price'>$500</div>
+            <div className='price red'>-$500</div>
             <div className='datetime'>2023-11-06 11:47</div>
           </div>
 
@@ -35,21 +35,20 @@ function App() {
             <div className='description'>old iphone is broken</div>
           </div>
           <div className='right'>
-            <div className='price'>$1000</div>
+            <div className='price red'>-$1000</div>
             <div className='datetime'>2023-11-05 10:47</div>
           </div>
-
+        </div>
         <div className='transaction'>
-          <div className='left'>
-            <div className='name'>new laptop</div>
-            <div className='description'>old laptop is broken</div>
+          <div className="left">
+            <div className='name'>gig</div>
+            <div className='description'>music gig</div>
           </div>
           <div className='right'>
-            <div className='price'>$1500</div>
-            <div className='datetime'>2023-11-03 09:47</div>
-          </div>
+            <div className='price green'>+700</div>
+            <div className='datetime'>2023-10-04 10:23</div>
 
-        </div>
+          </div>
         </div>
       </div>
 
