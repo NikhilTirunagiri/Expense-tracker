@@ -80,7 +80,7 @@ function App() {
             <div className='description'>{transaction.description}</div>
           </div>
           <div className='right'>
-            <div className={'price ' + (transaction < 0?'red':'green')}>
+            <div className={'price ' + (transaction.price<0?'red':'green')}>
               {transaction.price}
             </div>
             <div className='datetime'>2023-11-06 11:47</div>
