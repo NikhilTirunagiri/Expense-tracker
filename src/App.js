@@ -1,11 +1,21 @@
 import './App.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 
 function App() {
   const [name,setName] = useState('');
   const [datetime,setDatetime] = useState('');
   const [description,setDescription] = useState('');
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    getTransactions().then(setTransactions);
+  },[]);
+  async function getTransactions(){
+    const url = process.env.REACT_APP_API_URL+'/transactions';
+    const response = await fetch(url);
+    return await response.json();
+  };
   function addNewTransaction(ev) {
     ev.preventDefault();
     const url = process.env.REACT_APP_API_URL+'/transaction';
@@ -29,9 +39,17 @@ function App() {
       });
     });
   }
+
+  let balance = 0;
+  for (const transaction of transactions){
+    balance += transaction.price;
+  }
+  balance = balance.toFixed(2);
+  const fraction = balance.split('.')[1];
+
   return (
     <main>
-      <h1>$400<span>.00</span></h1>
+      <h1>${balance}<span>.{fraction}</span></h1>
       <form onSubmit={addNewTransaction}>      
 
         <div className='basic'>
@@ -55,40 +73,21 @@ function App() {
       </form>
 
       <div className='transactions'>
-        <div className='transaction'>
+        {transactions.length > 0 && transactions.map(transaction => (
+          <div className='transaction'>
           <div className='left'>
-            <div className='name'>new samsung tv</div>
-            <div className='description'>old tv is broken</div>
+            <div className='name'>{transaction.name}</div>
+            <div className='description'>{transaction.description}</div>
           </div>
           <div className='right'>
-            <div className='price red'>-$500</div>
+            <div className={'price ' + (transaction < 0?'red':'green')}>
+              {transaction.price}
+            </div>
             <div className='datetime'>2023-11-06 11:47</div>
           </div>
-
         </div>
-        <div className='transaction'>
-          <div className='left'>
-            <div className='name'>iphone</div>
-            <div className='description'>old iphone is broken</div>
-          </div>
-          <div className='right'>
-            <div className='price red'>-$1000</div>
-            <div className='datetime'>2023-11-05 10:47</div>
-          </div>
-        </div>
-        <div className='transaction'>
-          <div className="left">
-            <div className='name'>gig</div>
-            <div className='description'>music gig</div>
-          </div>
-          <div className='right'>
-            <div className='price green'>+700</div>
-            <div className='datetime'>2023-10-04 10:23</div>
-
-          </div>
-        </div>
+        ))}
       </div>
-
     </main>
   );
 }
