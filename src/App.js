@@ -21,6 +21,10 @@ function App() {
       })
     }).then(response => {
       response.json().then(json => {
+        setName('');
+        setDatetime('');
+        setDescription('');
+        
         console.log('result',json);
       });
     });
