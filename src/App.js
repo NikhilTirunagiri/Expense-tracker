@@ -46,6 +46,7 @@ function App() {
   }
   balance = balance.toFixed(2);
   const fraction = balance.split('.')[1];
+  balance = balance.split('.')[0];
 
   return (
     <main>
@@ -81,7 +82,7 @@ function App() {
           </div>
           <div className='right'>
             <div className={'price ' + (transaction.price<0?'red':'green')}>
-              {transaction.price}
+              {transaction.price}$
             </div>
             <div className='datetime'>2023-11-06 11:47</div>
           </div>
